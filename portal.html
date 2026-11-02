@@ -523,5 +523,27 @@
 
         listenForLiveMat1Updates();
     </script>
+    <script>
+    // Listen for updates sent from admin.html
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'railway_portal_lineups') {
+            const data = JSON.parse(e.newValue);
+            // Update Team 1 Name
+            const team1Title = document.querySelector('.team-card:nth-child(1) h3');
+            if (team1Title) team1Title.innerText = data.t1Name;
+            
+            // Update Team 2 Name
+            const team2Title = document.querySelector('.team-card:nth-child(2) h3');
+            if (team2Title) team2Title.innerText = data.t2Name;
+        }
+
+        if (e.key === 'railway_portal_bracket') {
+            const data = JSON.parse(e.newValue);
+            const finalTeams = document.querySelectorAll('.bracket-round:nth-child(2) .bracket-team span:first-child');
+            if (finalTeams[0]) finalTeams[0].innerText = data.sf1;
+            if (finalTeams[1]) finalTeams[1].innerText = data.sf2;
+        }
+    });
+</script>
 </body>
 </html>
